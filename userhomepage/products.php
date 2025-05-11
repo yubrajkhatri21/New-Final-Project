@@ -143,7 +143,7 @@ if (!$con) {
             <div class="nav-links">
                 <a href="homepage.php">Home</a>
                 <a href="products.php">Products</a>
-                <a href="#contact">Contact</a>
+                <a href="contact.php">Contact</a>
             </div>
 
             <!-- Auth Buttons -->
