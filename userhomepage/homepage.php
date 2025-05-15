@@ -431,12 +431,49 @@
             <img style=" width:25%; z-index:10; position:absolute; right:0 ; bottom:0;" src="../photo/girl-img.png" alt="">
         </div>
 
+        <?php
+        $user_id = $_SESSION['user_id'] ?? null;
+        if ($user_id) {
+            // 1. Get products current user interacted with
+            $sql = "SELECT product_id FROM user_product_interactions WHERE user_id = ?";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $user_products = [];
+            while ($row = $result->fetch_assoc()) {
+                $user_products[] = $row['product_id'];
+            }
+            $user_products_list = implode(',', $user_products);
 
+            // 2. Find similar users
+            $sql = "SELECT user_id FROM user_product_interactions WHERE product_id IN ($user_products_list) AND user_id != ?";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $similar_users = [];
+            while ($row = $result->fetch_assoc()) {
+                $similar_users[] = $row['user_id'];
+            }
+            $similar_users_list = implode(',', $similar_users);
 
-
-
-
-
+            // 3. Recommend products those users interacted with, but current user hasn't
+            $sql = "SELECT product_id, COUNT(*) as score FROM user_product_interactions 
+                    WHERE user_id IN ($similar_users_list) 
+                    AND product_id NOT IN ($user_products_list)
+                    GROUP BY product_id ORDER BY score DESC LIMIT 5";
+            $result = $con->query($sql);
+            echo "<h3>Recommended for you</h3><div class='product-grid'>";
+            while ($row = $result->fetch_assoc()) {
+                // Fetch product details and display
+                $pid = $row['product_id'];
+                $p = $con->query("SELECT * FROM productdetails WHERE Product_id = $pid")->fetch_assoc();
+                echo "<div class='product-item'><img src='../{$p['product_image']}'><h3>{$p['product_name']}</h3><p>Rs {$p['product_price']}</p></div>";
+            }
+            echo "</div>";
+        }
+        ?>
 
         <div class="bigcontainerpopup" id="popupContainer">
             <div class="container-signup">
