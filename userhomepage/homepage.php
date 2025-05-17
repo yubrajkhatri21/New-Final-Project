@@ -552,6 +552,32 @@ session_start();
                 height: 80px;
             }
         }
+
+        /* Slider animation styles */
+        .slider {
+            position: relative;
+            width: 350px;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(40px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(.4, 0, .2, 1), transform 0.8s cubic-bezier(.4, 0, .2, 1);
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            z-index: 2;
+        }
     </style>
 </head>
 
@@ -672,28 +698,6 @@ session_start();
                 const navLinks = document.querySelector('.nav-links');
                 navLinks.classList.toggle('active');
             }
-
-            function applyFilters() {
-                var category = document.getElementById("category_filter").value;
-                var minPrice = document.getElementById("min_price").value;
-                var maxPrice = document.getElementById("max_price").value;
-
-                $.ajax({
-                    url: "../php/filter_products.php",
-                    method: "POST",
-                    data: {
-                        category: category,
-                        minPrice: minPrice,
-                        maxPrice: maxPrice
-                    },
-                    success: function(data) {
-                        $(".product-grid").html(data);
-                    },
-                    error: function() {
-                        console.log("Error fetching filtered products.");
-                    }
-                });
-            }
         </script>
 
         <div class="innercontainer-inner">
@@ -731,9 +735,9 @@ session_start();
         <!-- Slider Container -->
         <div class="slide-container">
             <div class="slider">
-                <div class="slide slide1"><img src="img1.png" alt="Slide 1"></div>
-                <div class="slide slide2"><img src="img2.png" alt="Slide 2"></div>
-                <div class="slide slide3"><img src="img3.png" alt="Slide 3"></div>
+                <div class="slide active"><img src="img1.png" alt="Slide 1"></div>
+                <div class="slide"><img src="img2.png" alt="Slide 2"></div>
+                <div class="slide"><img src="img3.png" alt="Slide 3"></div>
             </div>
         </div>
     </div>
@@ -995,37 +999,31 @@ session_start();
     <script>
         const slider = document.querySelector('.slider');
         const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.querySelector('.prevBtn');
-        const nextBtn = document.querySelector('.nextBtn');
-
         let currentSlide = 0;
-        let slideInterval = setInterval(nextSlide, 3000);
+        let slideInterval = setInterval(nextSlide, 3500);
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
 
         function nextSlide() {
-            slides[currentSlide].style.opacity = 0;
+            slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].style.opacity = 1;
+            slides[currentSlide].classList.add('active');
         }
 
         function prevSlide() {
-            slides[currentSlide].style.opacity = 0;
+            slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            slides[currentSlide].style.opacity = 1;
+            slides[currentSlide].classList.add('active');
         }
 
-        nextBtn.addEventListener('click', () => {
-            clearInterval(slideInterval);
-            nextSlide();
-            slideInterval = setInterval(nextSlide, 3000);
-        });
+        // Optional: Add next/prev button logic if you have buttons
 
-        prevBtn.addEventListener('click', () => {
-            clearInterval(slideInterval);
-            prevSlide();
-            slideInterval = setInterval(nextSlide, 3000);
-        });
-
-        // product slide animation javascript
+        // Initialize first slide
+        showSlide(currentSlide);
     </script>
 
     <script>
@@ -1121,7 +1119,7 @@ session_start();
 <script>
     // Recently Added Product Slider
     const sliderTrack = document.querySelector('.recent-slider-track');
-    const slides = document.querySelectorAll('.recent-slide');
+    // const slides = document.querySelectorAll('.recent-slide');
     const prevBtn = document.querySelector('.recent-slider-btn.prev-btn');
     const nextBtn = document.querySelector('.recent-slider-btn.next-btn');
     let slideWidth = slides.length > 0 ? slides[0].offsetWidth + 20 : 250;
@@ -1145,7 +1143,7 @@ session_start();
     function startAutoScroll() {
         autoScrollInterval = setInterval(() => {
             scrollSlider('next');
-        }, 2500);
+        }, 2500); // Change interval as needed
     }
 
     function stopAutoScroll() {
