@@ -18,15 +18,24 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
     <link rel="stylesheet" href="view/app/usermenu.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        body {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            font-family: 'Poppins', 'Roboto', Arial, sans-serif;
+        }
+
         .message {
-            background-color: green;
-            color: white;
-            width: 20%;
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            width: 320px;
             text-align: center;
-            padding: 10px;
-            border-radius: .8rem;
+            padding: 12px 0;
+            border-radius: 1rem;
             float: right;
-            margin: 10px 90px;
+            margin: 18px 90px 0 0;
+            font-weight: 600;
+            box-shadow: 0 4px 18px #185a9d22;
+            letter-spacing: 1px;
         }
 
         .pinfo {
@@ -38,73 +47,67 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
         .inner-container-pdetails {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15%;
+            gap: 5%;
             width: 90vw;
-            margin: auto;
-            background-color: #fff5;
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            border-radius: .8rem;
             margin: 1% auto;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(7px);
+            box-shadow: 0 8px 32px #43cea244;
+            border-radius: 1.2rem;
+            padding: 24px 0;
         }
 
         .ptitle {
-            background-color: #fff5;
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            padding: 5px 10px;
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
+            color: #fff;
+            border-radius: 1rem 1rem 0 0;
+            box-shadow: 0 4px 18px #43cea244;
+            padding: 10px 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
-        .pinfo1 {
-            background-color: rgba(125, 17, 125, 0.649);
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            border-radius: .8rem;
-            padding: 20px 2px;
-        }
-
-        .pinfo2 {
-            background-color: rgba(17, 125, 35, 0.649);
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            border-radius: .8rem;
-            padding: 20px 2px;
-        }
-
+        .pinfo1,
+        .pinfo2,
         .pinfo3 {
-            background-color: rgba(109, 125, 17, 0.649);
+            background: linear-gradient(135deg, #ffb347 0%, #43cea2 100%);
             backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            border-radius: .8rem;
-            padding: 20px 2px;
+            box-shadow: 0 4px 18px #185a9d22;
+            border-radius: 1rem;
+            padding: 24px 10px;
+            color: #fff;
+            font-weight: 500;
         }
 
         .pinfo h2 {
-            color: rgb(34, 34, 31)
+            color: #185a9d;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
         }
 
         .pinfo h3 {
-            color: rgba(255, 255, 255, 0.792);
-            margin: 10px;
+            color: #fff;
+            margin: 10px 0;
         }
 
         .pbutton a {
-            background-color: rgba(0, 0, 255, 0.517);
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
             font-size: 18px;
-            padding: 5px 10px;
-            border-radius: .8rem;
+            padding: 7px 18px;
+            border-radius: 1rem;
             font-weight: bold;
-            color: rgba(255, 255, 255, 0.825);
+            color: #fff;
             cursor: pointer;
             margin-top: 10px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px #43cea244;
         }
 
         .pbutton a:hover {
-            background-color: rgba(0, 0, 255, 0.412);
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            transition: .25s;
-            transform: scale(0.5);
+            background: linear-gradient(90deg, #ffb347 0%, #43cea2 100%);
+            transform: scale(1.08);
         }
 
         .adminmain-container {
@@ -133,130 +136,215 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
         .pbtn_1 {
             text-decoration: none;
             border: none;
-            background-color: red;
+            background: linear-gradient(90deg, #ff5858 0%, #ffb347 100%);
             padding: 5px 10px;
             font-size: 26px;
             border-radius: 10px;
             color: white;
             margin: 5px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #ffb34744;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .pbtn_2 {
             text-decoration: none;
             border: none;
-            background-color: blue;
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
             padding: 5px 10px;
             font-size: 26px;
             border-radius: 10px;
             color: white;
             margin: 5px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #43cea244;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .view {
             text-decoration: none;
             border: none;
-            background-color: lightgreen;
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
             padding: 5px 10px;
             font-size: 30px;
             text-align: center;
             border-radius: 10px;
             color: white;
             margin: 5px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #43cea244;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .accept {
+            text-decoration: none;
+            border: none;
+            background: linear-gradient(90deg, #ffb347 0%, #43cea2 100%);
+            padding: 7px 14px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            color: #fff;
+            margin: 4px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #43cea244;
+            cursor: pointer;
+            display: inline-block;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .view:hover,
+        .accept:hover,
         .pbtn_1:hover,
         .pbtn_2:hover {
-            transform: scale(1.1);
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            cursor: pointer;
+            background: linear-gradient(90deg, #ffb347 0%, #43cea2 100%);
+            transform: scale(1.08);
         }
 
-        * {
-            margin: 0px;
-            padding: 0px;
-            font-family: 'Barlow', sans-serif;
-            font-family: 'Lato', sans-serif;
-            font-family: 'Roboto', sans-serif;
-            font-family: 'Ubuntu', sans-serif;
-        }
-
-        .main-body-delete {
-            background: rgba(255, 255, 255, 0.16);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(8.4px);
-            -webkit-backdrop-filter: blur(8.4px);
-            height: 100vh;
-            display: none;
-            position: fixed;
-            top: 0;
-            width: 100vw;
-        }
-
-        .main-delete-container {
-            display: flex;
-            height: 100vh;
-            display: flex;
-            position: fixed;
-            top: 0;
-            width: 100vw;
-        }
-
-        .inner-delete-container {
-            background-color: rgba(128, 128, 128, 0.208);
-            text-align: center;
-            width: 25%;
-            border-radius: 16px;
-            height: 15%;
-            margin: auto;
-            padding: 25px;
-        }
-
-        .inner-delete-container i {
-            color: red;
-            font-size: 44px;
-        }
-
-        .button {
-            margin-top: 25px;
-        }
-
-        .button a {
-            text-decoration: none;
-            font-size: 18px;
+        .status {
+            padding: 6px 16px;
+            border-radius: 1rem;
             font-weight: bold;
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 15px;
+            font-size: 1rem;
+            display: inline-block;
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
+            color: #fff;
+            box-shadow: 0 2px 8px #43cea244;
         }
 
-        .cancel {
-            background-color: rgba(43, 13, 240, 0.773);
-            color: white;
+        .status.delivered {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
         }
 
-        .cancel:hover {
-            background-color: rgba(43, 13, 240, 0.35);
+        .table {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 32px #185a9d22;
+            padding: 24px 0;
+            margin-top: 24px;
         }
 
-        .delete:hover {
-            background-color: rgba(255, 0, 0, 0.38);
+        .table__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px 18px 32px;
+            border-bottom: 2px solid #43cea2;
         }
 
-        .delete {
-            background-color: red;
-            color: white;
+        .table__header h1 {
+            color: #185a9d;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
-        .confirm {
-            background-color: green;
-            color: white;
+        .input-group input[type="search"] {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1.5px solid #43cea2;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.2s;
+            margin-right: 8px;
         }
 
-        .confirm:hover {
-            background-color: seagreen;
+        .input-group input[type="search"]:focus {
+            border: 1.5px solid #ffb347;
+        }
+
+        .input-group img {
+            width: 24px;
+            vertical-align: middle;
+        }
+
+        .table__body {
+            padding: 0 32px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            background: transparent;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        th {
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.85);
+            color: #185a9d;
+            border-bottom: 1px solid #eee;
+        }
+
+        td img {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #43cea244;
+        }
+
+        @media (max-width: 900px) {
+            .adminmain-container {
+                flex-direction: column;
+            }
+
+            .dashdiv {
+                margin-left: 0;
+                padding: 18px 2vw 0 2vw;
+            }
+
+            .menudiv {
+                position: static;
+                width: 100vw;
+                min-height: unset;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .table__header,
+            .table__body {
+                padding: 0 8px;
+            }
+
+            .inner-container-pdetails {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 10px 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .table__header h1 {
+                font-size: 1.1rem;
+            }
+
+            th,
+            td {
+                font-size: 0.95rem;
+                padding: 6px 2px;
+            }
+
+            .message {
+                width: 98vw;
+                margin: 10px 0 0 0;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>

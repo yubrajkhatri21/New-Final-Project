@@ -42,8 +42,8 @@ include('php/connector.php');
             flex-direction: column;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 18px 10px 0 10px;
-            gap: 24px;
+            padding: 12px 2vw 0 2vw;
+            gap: 18px;
             min-height: 0;
             width: 100%;
             box-sizing: border-box;
@@ -156,20 +156,20 @@ include('php/connector.php');
         /* Main Slider */
         .mainslider-container {
             display: flex;
-            gap: 32px;
+            gap: 18px;
             align-items: center;
             justify-content: space-between;
-            padding: 32px 18px;
+            padding: 18px 2vw;
             background: linear-gradient(135deg, #007BFF, #4CAF50);
             color: white;
             border-radius: 14px;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             width: 100%;
             box-sizing: border-box;
         }
         .info-container, .slide-container {
-            flex: 1 1 320px;
-            min-width: 220px;
+            flex: 1 1 220px;
+            min-width: 180px;
             max-width: 500px;
         }
         .info-container h2 {
@@ -206,6 +206,7 @@ include('php/connector.php');
             border-radius: 10px;
             overflow: hidden;
             position: relative;
+            min-width: 0;
         }
         .slide {
             display: none;
@@ -213,9 +214,10 @@ include('php/connector.php');
         }
         .slide img {
             width: 100%;
-            height: 220px;
+            height: 180px;
             object-fit: cover;
             border-radius: 10px;
+            display: block;
         }
         .slide.active {
             display: block;
@@ -231,63 +233,62 @@ include('php/connector.php');
             font-size: 22px;
             margin-bottom: 10px;
         }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            justify-content: center;
-            margin-bottom: 32px;
-            padding: 24px 8px 0 8px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: border-box;
-            align-items: stretch;
-            width: 100%;
-        }
-        .product-item {
+        .recent-slider-container {
             display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 340px;
-            background: white;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            margin: 0 auto 32px auto;
+            max-width: 1200px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .recent-slider-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 20px;
+            width: 100%;
+            padding: 10px 0;
+            box-sizing: border-box;
+        }
+        .recent-slide {
+            min-width: 220px;
+            max-width: 240px;
+            background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.09);
-            overflow: hidden;
             text-align: center;
-            padding: 18px;
-            margin: 0;
+            padding: 12px 10px 16px 10px;
+            flex: 0 0 auto;
+            transition: transform 0.3s;
+            box-sizing: border-box;
         }
-        .productlist-img {
+        .recent-slide img {
             width: 100%;
-            height: 170px;
+            height: 140px;
             object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            background: #f7f8fa;
+        }
+        .recent-slider-btn {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin: 0 8px;
+            transition: background 0.2s, transform 0.2s;
+            z-index: 2;
             flex-shrink: 0;
         }
-        .product-title {
-            font-size: 18px;
-            color: #333;
-            margin: 10px 0 4px 0;
-            flex-grow: 0;
-        }
-        .product-price {
-            color: #FF5722;
-            font-weight: bold;
-            margin-bottom: 10px;
-            flex-grow: 0;
-        }
-        .product-item a {
-            display: inline-block;
-            padding: 8px 18px;
-            background: linear-gradient(90deg,#007BFF,#4CAF50);
-            color: #fff;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s, transform 0.3s;
-            margin-top: auto;
+        .recent-slider-btn:hover {
+            background: #FF5722;
+            transform: scale(1.1);
         }
         /* Footer */
         .footer {
@@ -359,6 +360,18 @@ include('php/connector.php');
                 gap: 18px;
             }
         }
+        @media (max-width: 900px) {
+    .mainslider-container {
+        flex-direction: column;
+        gap: 12px;
+        padding: 10px 2vw;
+    }
+    .info-container, .slide-container {
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+    }
+}
         @media (max-width: 700px) {
             .inner-container {
                 flex-direction: column;
@@ -383,7 +396,7 @@ include('php/connector.php');
                 min-width: 0;
             }
             .slide img {
-                height: 140px;
+                height: 120px;
             }
             .search {
                 margin: 0 0 10px 0;
@@ -407,33 +420,36 @@ include('php/connector.php');
         @media (max-width: 500px) {
     .product-grid {
         grid-template-columns: 1fr;
-        padding: 12px 2vw 0 2vw;
-        overflow-x: auto;
+        padding: 8px 1vw 0 1vw;
+        gap: 10px;
     }
     .product-item {
         min-width: 0;
         width: 100%;
         max-width: 98vw;
+        padding: 8px 4px 10px 4px;
     }
-    .mainslider-container {
-        padding: 10px 0;
+    .slide img {
+        height: 90px;
     }
-    .footer .row {
-        flex-direction: column;
-        gap: 8px;
+    .supermain-container {
+        padding: 6px 1vw 0 1vw;
     }
-    .inner-container {
-        flex-direction: column;
-        gap: 10px;
-        align-items: stretch;
-        width: 100%;
+}
+@media (max-width: 400px) {
+    .recent-slide {
+        min-width: 100px;
+        max-width: 120px;
+        font-size: 0.9rem;
+        padding: 4px 2px 6px 2px;
     }
-    .nav-links {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        width: 100%;
-        margin-top: 10px;
+    .recent-slide img {
+        height: 40px;
+    }
+    .recent-slider-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 1rem;
     }
 }
     </style>
@@ -475,7 +491,7 @@ include('php/connector.php');
                     <p>Buy and sell quality second-hand items. Save money and reduce waste!</p>
                     <div class="infobutton">
                         <a href="./productcard_productdetails.php" class="infobtn1">Browse Products</a>
-                        <a href="./userhomepage/addusermanage" class="infobtn2">+ List Product</a>
+                        <a href="./addproductmanage.php" class="infobtn2">+ List Product</a>
                     </div>
                 </div>
                 <div class="slide-container">
@@ -490,20 +506,32 @@ include('php/connector.php');
             <div class="recentlyadd">
                 <h3>Recently Added Products</h3>
             </div>
-            <div class="product-grid">
-                <?php
-                $sql = "SELECT * FROM productdetails WHERE display_home=1 ORDER BY Product_id DESC LIMIT 6";
-                $r = mysqli_query($con, $sql);
-                while ($data = mysqli_fetch_assoc($r)) {
-                ?>
-                    <div class="product-item">
-                        <img src="<?php echo htmlspecialchars($data['product_image']); ?>" alt="Product Image" class="productlist-img">
-                        <h3 class="product-title"><?php echo htmlspecialchars($data['product_name']); ?></h3>
-                        <p class="product-price">Rs <?php echo htmlspecialchars($data['product_price']); ?></p>
-                        <a href="productcard_afterlogin.php?productid=<?php echo $data['Product_id']; ?>">View Details</a>
-                    </div>
-                <?php } ?>
+            <div class="recent-slider-container">
+    <button class="recent-slider-btn prev-btn">&#10094;</button>
+    <div class="recent-slider-track">
+        <?php
+        $sql = "SELECT * FROM productdetails WHERE display_home=1 ORDER BY Product_id DESC LIMIT 6";
+        $r = mysqli_query($con, $sql);
+        while ($data = mysqli_fetch_assoc($r)) {
+        ?>
+            <div class="recent-slide">
+                <img src="<?php echo htmlspecialchars($data['product_image']); ?>" alt="Product Image" class="productlist-img">
+                <h3 class="product-title"><?php echo htmlspecialchars($data['product_name']); ?></h3>
+                <p class="product-price">Rs <?php echo htmlspecialchars($data['product_price']); ?></p>
+                <a href="productcard_afterlogin.php?productid=<?php echo $data['Product_id']; ?>">View Details</a>
             </div>
+        <?php } ?>
+    </div>
+    <button class="recent-slider-btn next-btn">&#10095;</button>
+</div>
+<!-- Price Filter -->
+<form id="price-filter-form" style="display:flex; gap:10px; align-items:center; margin-bottom:18px; flex-wrap:wrap;">
+    <label for="min-price" style="font-weight:500;">Min Price:</label>
+    <input type="number" id="min-price" name="min-price" min="0" placeholder="0" style="padding:6px 10px; border-radius:6px; border:1px solid #ccc; width:90px;">
+    <label for="max-price" style="font-weight:500;">Max Price:</label>
+    <input type="number" id="max-price" name="max-price" min="0" placeholder="Any" style="padding:6px 10px; border-radius:6px; border:1px solid #ccc; width:90px;">
+    <button type="submit" style="padding:7px 18px; border-radius:6px; background:#007BFF; color:#fff; border:none; font-weight:600; cursor:pointer;">Filter</button>
+</form>
         </div>
     </div>
     <footer class="footer">
@@ -538,23 +566,105 @@ include('php/connector.php');
         </div>
     </footer>
     <script>
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-        // Responsive slider
-        let current = 0;
-        const slides = document.querySelectorAll('.slide');
-        function showSlide(idx) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === idx);
-            });
-        }
-        showSlide(current);
+function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('active');
+}
+
+// Main slider (top banner)
+(function() {
+    const mainSlides = document.querySelectorAll('.slide');
+    let mainCurrent = 0;
+    function showMainSlide(idx) {
+        mainSlides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === idx);
+        });
+    }
+    if (mainSlides.length > 0) {
+        showMainSlide(mainCurrent);
         setInterval(() => {
-            current = (current + 1) % slides.length;
-            showSlide(current);
+            mainCurrent = (mainCurrent + 1) % mainSlides.length;
+            showMainSlide(mainCurrent);
         }, 3000);
+    }
+})();
+
+// Recently added products slider
+(function() {
+    const sliderTrack = document.querySelector('.recent-slider-track');
+    const recentSlides = document.querySelectorAll('.recent-slide');
+    const prevBtn = document.querySelector('.recent-slider-btn.prev-btn');
+    const nextBtn = document.querySelector('.recent-slider-btn.next-btn');
+    let autoScrollInterval;
+    let isDown = false, startX, scrollLeft;
+
+    function getSlideWidth() {
+        return recentSlides.length > 0 ? recentSlides[0].offsetWidth + 20 : 240;
+    }
+
+    function scrollSlider(direction) {
+        if (!sliderTrack) return;
+        const slideWidth = getSlideWidth();
+        sliderTrack.scrollBy({ left: direction === 'next' ? slideWidth : -slideWidth, behavior: 'smooth' });
+    }
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => scrollSlider('prev'));
+        nextBtn.addEventListener('click', () => scrollSlider('next'));
+    }
+
+    function startAutoScroll() {
+        stopAutoScroll();
+        autoScrollInterval = setInterval(() => {
+            scrollSlider('next');
+        }, 2500);
+    }
+    function stopAutoScroll() {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+        }
+    }
+
+    sliderTrack.addEventListener('mousedown', (e) => {
+        isDown = true;
+        sliderTrack.classList.add('active');
+        startX = e.pageX - sliderTrack.offsetLeft;
+        scrollLeft = sliderTrack.scrollLeft;
+    });
+    sliderTrack.addEventListener('mouseleave', () => {
+        isDown = false;
+        sliderTrack.classList.remove('active');
+        stopAutoScroll();
+    });
+    sliderTrack.addEventListener('mouseup', () => {
+        isDown = false;
+        sliderTrack.classList.remove('active');
+        startAutoScroll();
+    });
+    sliderTrack.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - sliderTrack.offsetLeft;
+        const walk = (x - startX) * 2; //scroll-fast
+        sliderTrack.scrollLeft = scrollLeft - walk;
+    });
+
+    startAutoScroll();
+})();
+document.getElementById('price-filter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const min = document.getElementById('min-price').value;
+    const max = document.getElementById('max-price').value;
+    const track = document.querySelector('.recent-slider-track');
+    track.innerHTML = '<div style="width:100%;text-align:center;padding:30px 0;">Loading...</div>';
+    fetch(`php/filter_recent_products.php?min=${min}&max=${max}`)
+        .then(res => res.text())
+        .then(html => {
+            track.innerHTML = html;
+        });
+});
     </script>
 </body>
+
 </html>
