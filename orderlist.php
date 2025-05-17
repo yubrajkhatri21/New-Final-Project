@@ -22,6 +22,222 @@ $userid = $_SESSION['user_id'];
     <link rel="stylesheet" href="view/app/usermenu.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        body {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            font-family: 'Roboto', 'Lato', 'Barlow', 'Ubuntu', sans-serif;
+            margin: 0;
+        }
+
+        .adminmain-container {
+            display: flex;
+            max-width: 100%;
+        }
+
+        .dashdiv {
+            flex: 1;
+            margin-left: 65px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            margin: 32px 24px 24px 24px;
+            padding: 2rem 1.5rem;
+        }
+
+        .table__header h1 {
+            color: #185a9d;
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 18px;
+        }
+
+        .table__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .input-group input[type="search"] {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1.5px solid #43cea2;
+            font-size: 1rem;
+            background: #f7f8fa;
+            transition: border 0.2s;
+        }
+
+        .input-group input[type="search"]:focus {
+            border: 1.5px solid #185a9d;
+            outline: none;
+        }
+
+        .table__body table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 18px #185a9d22;
+        }
+
+        .table__body th,
+        .table__body td {
+            padding: 14px 10px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .table__body th {
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .table__body tr {
+            transition: background 0.2s;
+        }
+
+        .table__body tr:hover {
+            background: #e3f6f5;
+        }
+
+        .table__body td img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #43cea2;
+            box-shadow: 0 2px 8px #43cea244;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            background: #ffb347;
+            color: #fff;
+            box-shadow: 0 2px 8px #ffb34744;
+        }
+
+        .status.delivered {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+        }
+
+        .status.pending {
+            background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+        }
+
+        .pbtn_1,
+        .pbtn_2,
+        .view {
+            text-decoration: none;
+            border: none;
+            padding: 8px 16px;
+            font-size: 20px;
+            border-radius: 10px;
+            color: #fff;
+            margin: 5px;
+            font-weight: bold;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px #185a9d22;
+            cursor: pointer;
+        }
+
+        .pbtn_1 {
+            background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+        }
+
+        .pbtn_2 {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+        }
+
+        .view {
+            background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+            color: #185a9d;
+        }
+
+        .pbtn_1:hover,
+        .pbtn_2:hover,
+        .view:hover {
+            transform: scale(1.09);
+            box-shadow: 0 8px 24px #ffb34755, 0 2px 8px #43cea244;
+            filter: brightness(1.1);
+        }
+
+        .btndiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .message,
+        .success-message,
+        .error-message {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #43cea244;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 2000;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+        }
+
+        .error-message {
+            background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+        }
+
+        .main-body-delete,
+        .main-delete-container,
+        .inner-delete-container {
+            /* Keep your modal styles as is for now */
+        }
+
+        @media (max-width: 900px) {
+            .dashdiv {
+                margin: 16px 2vw;
+                padding: 1rem 2vw;
+            }
+
+            .table__body th,
+            .table__body td {
+                padding: 8px 2px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dashdiv {
+                margin: 8px 0;
+                padding: 0.5rem 1vw;
+            }
+
+            .table__body th,
+            .table__body td {
+                padding: 4px 1px;
+                font-size: 0.9rem;
+            }
+
+            .adminmain-container {
+                flex-direction: column;
+            }
+        }
+
         .message {
             background-color: green;
             color: white;
@@ -334,7 +550,7 @@ $userid = $_SESSION['user_id'];
                             $sql = "SELECT * FROM  ordertable od JOIN productdetails pd ON od.Product_id=pd.Product_id WHERE od.customer_id=$userid ";
 
                             $r = mysqli_query($con, $sql);
-                            $sn=1;
+                            $sn = 1;
                             while ($data = mysqli_fetch_assoc($r)) {
                             ?>
 
@@ -350,51 +566,49 @@ $userid = $_SESSION['user_id'];
                                     </td>
 
                                     <td> <strong> Rs<?php echo $data['product_price'] ?> </strong></td>
-                                   
-
-
-                                        <?php $order_id = $data['order_id'];
-                                        $Product_id=$data['Product_id'];
-                                        $confirmation_status = $data['payment_status'];
-
-                                        // Show "Completed" for confirmed orders, otherwise show buttons
-                                        $status_text = ($confirmation_status == 'Confirmed') ? 'Completed' : '<a href="#" onclick="show(' . $order_id . ',' . $Product_id . ')" class="pbtn_1"><ion-icon name="trash-outline"></ion-icon></a>';
-
-
-                                        // ...
-                                        echo '<td id="action" class="pbtn" style="height:100%;">';
-                                        echo '<div class="btndiv">';
-                                        echo $status_text;
-                                        echo '</div>';
-                                        echo '</td>';
-                                        // ...
-                                        ?>
 
 
 
+                                    <?php $order_id = $data['order_id'];
+                                    $Product_id = $data['Product_id'];
+                                    $confirmation_status = $data['payment_status'];
+
+                                    // Show "Completed" for confirmed orders, otherwise show buttons
+                                    $status_text = ($confirmation_status == 'Confirmed') ? 'Completed' : '<a href="#" onclick="show(' . $order_id . ',' . $Product_id . ')" class="pbtn_1"><ion-icon name="trash-outline"></ion-icon></a>';
 
 
-
-
-
-
-
-
-
-
-
-                            
-                                    <?php
-                                    $order_id = $data['order_id'];
+                                    // ...
+                                    echo '<td id="action" class="pbtn" style="height:100%;">';
+                                    echo '<div class="btndiv">';
+                                    echo $status_text;
+                                    echo '</div>';
+                                    echo '</td>';
+                                    // ...
                                     ?>
 
-                                    <td>
-                                        <a class="view" href="productcard_order.php?orderid= <?php echo $order_id ?>"><ion-icon name="eye-outline"></ion-icon></a>
-                                    </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <?php
+                                $order_id = $data['order_id'];
+                                ?>
+
+                                <td>
+                                    <a class="view" href="productcard_order.php?orderid= <?php echo $order_id ?>"><ion-icon name="eye-outline"></ion-icon></a>
+                                </td>
                                 </tr>
-                                <?php $sn++; ?>
-                                
-                            <?php } ?>
+                                <?php $sn++;
+                                } ?>
 
                         </tbody>
                     </table>
@@ -435,7 +649,6 @@ $userid = $_SESSION['user_id'];
 
 
 
-
         }
     </script>
 
@@ -449,55 +662,55 @@ $userid = $_SESSION['user_id'];
 <html>
 
 <head>
-  <script type="text/javascript">
-    function showMessage(message, className) {
-      var messageElement = document.createElement('div');
-      messageElement.className = className;
-      messageElement.innerText = message;
-      document.body.appendChild(messageElement);
-      setTimeout(function() {
-        messageElement.remove();
-      }, 5000);
-    }
-  </script>
-  <style type="text/css">
-    .success-message {
-      background-color: green;
-      color: #fff;
-      padding: 20px;
-      position: absolute;
-      margin: auto;
-      top: 10px;
-      right: 10px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bolder;
-      border-radius: 10px;
-    }
+    <script type="text/javascript">
+        function showMessage(message, className) {
+            var messageElement = document.createElement('div');
+            messageElement.className = className;
+            messageElement.innerText = message;
+            document.body.appendChild(messageElement);
+            setTimeout(function() {
+                messageElement.remove();
+            }, 5000);
+        }
+    </script>
+    <style type="text/css">
+        .success-message {
+            background-color: green;
+            color: #fff;
+            padding: 20px;
+            position: absolute;
+            margin: auto;
+            top: 10px;
+            right: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bolder;
+            border-radius: 10px;
+        }
 
-    .error-message {
-      background-color:red;
-      color: white;
-      padding: 20px;
-      margin-bottom: 150px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bolder;
-      position: absolute;
-      border-radius:10px;
-      margin: auto;
-      top: 50px;
-      right: 20px;
-    }
-  </style>
+        .error-message {
+            background-color: red;
+            color: white;
+            padding: 20px;
+            margin-bottom: 150px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bolder;
+            position: absolute;
+            border-radius: 10px;
+            margin: auto;
+            top: 50px;
+            right: 20px;
+        }
+    </style>
 </head>
 
 <body>
-<?php if (isset($_SESSION['success'])) { ?>
+    <?php if (isset($_SESSION['success'])) { ?>
         <script type="text/javascript">
             showMessage('<?php echo $_SESSION['success']; ?>', 'success-message');
             <?php unset($_SESSION['success']);
-          ?>
+            ?>
         </script>
     <?php } ?>
 
@@ -505,9 +718,9 @@ $userid = $_SESSION['user_id'];
         <script type="text/javascript">
             showMessage('<?php echo $_SESSION['error']; ?>', 'error-message');
             <?php unset($_SESSION['error']);
-         ?>
+            ?>
         </script>
-    <?php } ?> 
+    <?php } ?>
 </body>
 
 </html>

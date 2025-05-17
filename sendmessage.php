@@ -7,175 +7,212 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['user_id']) || !isset($_SESSI
 $productid = $_GET['productid'];
 ?>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title> sending message</title>
-    <link rel="stylesheet" href="style.css">
- 
+    <title>Send Message</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <style>
-       
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins" , sans-serif;
+  font-family: "Poppins", sans-serif;
 }
-body{
+body {
   min-height: 100vh;
   width: 100%;
-  background: #c8e8e9;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.container{
-  width: 85%;
+.container {
+  width: 95%;
+  max-width: 900px;
   background: #fff;
-  border-radius: 6px;
-  padding: 20px 60px 30px 40px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 18px;
+  padding: 32px 40px 32px 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
 }
-.container .content{
+.container::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+  opacity: 0.18;
+  border-radius: 50%;
+  z-index: 0;
+}
+.container .content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  position: relative;
+  z-index: 1;
 }
-.container .content .left-side{
-  width: 25%;
-  height: 100%;
+.container .content .left-side {
+  width: 30%;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 15px;
+  justify-content: flex-start;
+  margin-top: 10px;
   position: relative;
+  background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+  border-radius: 12px;
+  padding: 24px 10px;
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(67,206,162,0.08);
 }
-.content .left-side::before{
-  content: '';
-  position: absolute;
-  height: 70%;
-  width: 2px;
-  right: -15px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #afafb6;
-}
-.content .left-side .details{
-  margin: 14px;
+.content .left-side .details {
+  margin: 18px 0;
   text-align: center;
 }
-.content .left-side .details i{
-  font-size: 30px;
-  color: #3e2093;
+.content .left-side .details i {
+  font-size: 32px;
+  color: #ffd600;
   margin-bottom: 10px;
+  background: #fff2;
+  border-radius: 50%;
+  padding: 12px;
 }
-.content .left-side .details .topic{
+.content .left-side .details .topic {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #fff;
 }
 .content .left-side .details .text-one,
-.content .left-side .details .text-two{
-  font-size: 14px;
-  color: #afafb6;
+.content .left-side .details .text-two {
+  font-size: 15px;
+  color: #e0e0e0;
 }
-.container .content .right-side{
-  width: 75%;
-  margin-left: 75px;
+.container .content .right-side {
+  width: 65%;
+  margin-left: 40px;
+  background: #f7f8fa;
+  border-radius: 12px;
+  padding: 28px 24px;
+  box-shadow: 0 2px 8px rgba(24,90,157,0.06);
 }
-.content .right-side .topic-text{
-  font-size: 23px;
-  font-weight: 600;
-  color: #3e2093;
+.content .right-side .topic-text {
+  font-size: 25px;
+  font-weight: 700;
+  color: #185a9d;
+  margin-bottom: 10px;
 }
-.right-side .input-box{
-  height: 50px;
+.content .right-side p {
+  color: #555;
+  margin-bottom: 18px;
+}
+.right-side .input-box {
+  height: 48px;
   width: 100%;
   margin: 12px 0;
 }
 .right-side .input-box input,
-.right-side .input-box textarea{
+.right-side .input-box textarea {
   height: 100%;
   width: 100%;
   border: none;
   outline: none;
   font-size: 16px;
-  background: #F0F1F8;
-  border-radius: 6px;
+  background: #e3f6f5;
+  border-radius: 8px;
   padding: 0 15px;
   resize: none;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(67,206,162,0.07);
 }
-.right-side .message-box{
+.right-side .input-box input:focus,
+.right-side .input-box textarea:focus {
+  box-shadow: 0 2px 8px #43cea2aa;
+}
+.right-side .message-box {
   min-height: 110px;
+  height: auto;
 }
-.right-side .input-box textarea{
-  padding-top: 6px;
+.right-side .input-box textarea {
+  padding-top: 8px;
+  min-height: 90px;
+  max-height: 200px;
 }
-.right-side .button{
+.right-side .button {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 16px;
 }
-.right-side .button input[type="button"]{
+.right-side .button input[type="submit"] {
   color: #fff;
   font-size: 18px;
   outline: none;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  background: #3e2093;
+  padding: 10px 28px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #185a9d33;
+  transition: background 0.3s, transform 0.2s;
 }
-.button input[type="button"]:hover{
-  background: #5029bc;
+.right-side .button input[type="submit"]:hover {
+  background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+  color: #185a9d;
+  transform: scale(1.05);
 }
-
 @media (max-width: 950px) {
-  .container{
-    width: 90%;
-    padding: 30px 40px 40px 35px ;
+  .container {
+    padding: 24px 10px 24px 10px;
   }
-  .container .content .right-side{
-   width: 75%;
-   margin-left: 55px;
-}
+  .container .content .right-side {
+    margin-left: 20px;
+    padding: 20px 10px;
+  }
 }
 @media (max-width: 820px) {
-  .container{
-    margin: 40px 0;
+  .container {
+    margin: 24px 0;
     height: 100%;
   }
-  .container .content{
+  .container .content {
     flex-direction: column-reverse;
+    align-items: stretch;
   }
- .container .content .left-side{
-   width: 100%;
-   flex-direction: row;
-   margin-top: 40px;
-   justify-content: center;
-   flex-wrap: wrap;
- }
- .container .content .left-side::before{
-   display: none;
- }
- .container .content .right-side{
-   width: 100%;
-   margin-left: 0;
- }
+  .container .content .left-side {
+    width: 100%;
+    flex-direction: row;
+    margin-top: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 18px 0;
+    border-radius: 10px;
+  }
+  .container .content .right-side {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 18px;
+    padding: 18px 8px;
+  }
 }
-     </style>
-   </head>
+    </style>
+</head>
 <body>
-<?php $dqry = "SELECT * FROM userdetails u JOIN productdetails p ON u.user_id=p.user_id WHERE Product_id=$productid";
-    $result = mysqli_query($con, $dqry);
-    if ($data = mysqli_fetch_assoc($result)) {
-        ?>
+<?php
+$dqry = "SELECT * FROM userdetails u JOIN productdetails p ON u.user_id=p.user_id WHERE Product_id=$productid";
+$result = mysqli_query($con, $dqry);
+if ($data = mysqli_fetch_assoc($result)) {
+?>
   <div class="container">
     <div class="content">
       <div class="left-side">
-
         <div class="address details">
           <i class="fas fa-map-marker-alt"></i>
           <div class="topic">Address</div>
@@ -195,28 +232,24 @@ body{
       </div>
       <div class="right-side">
         <div class="topic-text">Send us a message</div>
-        <p>If you have any work from me or any types of quries related to my tutorial, you can send me message from here. It's my pleasure to help you.</p>
-      <form action="php/sendmessageback.php?productid=<?php echo $productid ?>" method="POST">
-        <div class="input-box">
-          <input readonly type="text" name="name" Value="<?php echo $data['name']; ?>" placeholder="Enter your name">
-        </div>
-        <div class="input-box">
-          <input name="email" readonly type="text" value="<?php echo $data['email']; ?>" placeholder="Enter your email">
-        </div>
-        <div class="input-box message-box">
-        <input type="text" name="message" placeholder="Enter Message Here..">
-          
-        </div>
-        <div class="button">
-          <input type="submit" name="submit" value="Send Now" >
-        </div>
-      </form>
-      <?php } ?>
-    </div>
+        <p>If you have any questions or want to contact the seller, send a message below!</p>
+        <form action="php/sendmessageback.php?productid=<?php echo $productid ?>" method="POST">
+          <div class="input-box">
+            <input readonly type="text" name="name" value="<?php echo $data['name']; ?>" placeholder="Enter your name">
+          </div>
+          <div class="input-box">
+            <input name="email" readonly type="text" value="<?php echo $data['email']; ?>" placeholder="Enter your email">
+          </div>
+          <div class="input-box message-box">
+            <textarea name="message" placeholder="Enter Message Here.." required></textarea>
+          </div>
+          <div class="button">
+            <input type="submit" name="submit" value="Send Now">
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-
-
-
+<?php } ?>
 </body>
 </html>

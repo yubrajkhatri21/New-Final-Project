@@ -451,6 +451,107 @@ session_start();
         .apply-button:hover {
             background-color: #E64A19;
         }
+
+        .recentlyadd {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .recentlyadd h3 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .recent-slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            position: relative;
+        }
+
+        .recent-slider-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 20px;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .recent-slide {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+            max-width: 250px;
+            flex: 0 0 250px;
+            text-align: center;
+            padding: 18px 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .recent-slide img {
+            border-radius: 10px;
+            max-width: 100%;
+            height: 140px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .recent-slider-btn {
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px #43cea244;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recent-slider-btn:hover {
+            background: linear-gradient(90deg, #ffb347 0%, #43cea2 100%);
+            color: #185a9d;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .recent-slide,
+            .recent-slider-track {
+                min-width: 200px;
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .recent-slider-container {
+                gap: 2px;
+            }
+
+            .recent-slide,
+            .recent-slider-track {
+                min-width: 140px;
+                max-width: 140px;
+            }
+
+            .recent-slide img {
+                height: 80px;
+            }
+        }
     </style>
 </head>
 
@@ -639,31 +740,30 @@ session_start();
     <div class="recentlyadd">
         <h3>Recently Added Products</h3>
     </div>
-    <div class="product-grid">
-        <?php
-        $stmt = $con->prepare("SELECT * FROM productdetails WHERE display_home = 1 ORDER BY Product_id DESC LIMIT 3");
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            while ($data = $result->fetch_assoc()) {
-        ?>
-                <div class="product-item">
-                    <div>
+    <div class="recent-slider-container">
+        <button class="recent-slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+        <div class="recent-slider-track">
+            <?php
+            $stmt = $con->prepare("SELECT * FROM productdetails WHERE display_home = 1 ORDER BY Product_id DESC LIMIT 10");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                while ($data = $result->fetch_assoc()) {
+            ?>
+                    <div class="recent-slide">
                         <img src="../<?php echo $data['product_image']; ?>" alt="Product Image" class="productlist-img">
-                    </div>
-                    <div>
                         <h3 class="product-title"><?php echo $data['product_name']; ?></h3>
                         <p class="product-price">Rs <?php echo $data['product_price']; ?></p>
-                        <a href="../login.php">Buy now</a>
+                        <a href="../login.php" class="btn1">Buy now</a>
                     </div>
-                </div>
-        <?php
+            <?php
+                }
+            } else {
+                echo "<p>No products found.</p>";
             }
-        } else {
-            echo "<p>No products found.</p>";
-        }
-        ?>
+            ?>
+        </div>
+        <button class="recent-slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
     </div>
     <div>
         <img style=" width:25%; z-index:10; position:absolute; right:0 ; bottom:0;" src="../photo/girl-img.png" alt="">
@@ -1017,3 +1117,47 @@ session_start();
 </body>
 
 </html>
+
+<script>
+    // Recently Added Product Slider
+    const sliderTrack = document.querySelector('.recent-slider-track');
+    const slides = document.querySelectorAll('.recent-slide');
+    const prevBtn = document.querySelector('.recent-slider-btn.prev-btn');
+    const nextBtn = document.querySelector('.recent-slider-btn.next-btn');
+    let slideWidth = slides.length > 0 ? slides[0].offsetWidth + 20 : 250;
+    let autoScrollInterval;
+
+    function scrollSlider(direction) {
+        if (!sliderTrack) return;
+        if (direction === 'next') {
+            sliderTrack.scrollBy({ left: slideWidth, behavior: 'smooth' });
+        } else {
+            sliderTrack.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+        }
+    }
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => scrollSlider('prev'));
+        nextBtn.addEventListener('click', () => scrollSlider('next'));
+    }
+
+    // Auto-scroll functionality
+    function startAutoScroll() {
+        autoScrollInterval = setInterval(() => {
+            scrollSlider('next');
+        }, 2500);
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+    }
+
+    // Start auto-scroll
+    startAutoScroll();
+
+    // Pause auto-scroll on hover
+    if (sliderTrack) {
+        sliderTrack.addEventListener('mouseenter', stopAutoScroll);
+        sliderTrack.addEventListener('mouseleave', startAutoScroll);
+    }
+</script>

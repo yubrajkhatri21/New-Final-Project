@@ -1,27 +1,26 @@
 <?php
 include('php/connector.php');
+// session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - Second-Hand Marketplace</title>
     <link rel="stylesheet" href="css/homepageafterlogin.css">
     <link rel="stylesheet" href="css/userafterlogin.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700&family=Lato:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <style>
-        /* General Reset */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            width: 100%;
+            overflow-x: hidden;
         }
         body {
             min-height: 100vh;
@@ -29,18 +28,14 @@ include('php/connector.php');
             flex-direction: column;
             font-family: 'Poppins', 'Roboto', sans-serif;
             background: #f7f8fa;
+            width: 100%;
         }
         .page-content {
-            flex: 1 1 auto;
+            flex: 1 0 auto;
             display: flex;
             flex-direction: column;
-            min-height: 0;
+            width: 100%;
         }
-        .footer {
-            flex-shrink: 0;
-        }
-
-        /* Main Container */
         .supermain-container {
             flex: 1 1 auto;
             display: flex;
@@ -50,14 +45,16 @@ include('php/connector.php');
             padding: 18px 10px 0 10px;
             gap: 24px;
             min-height: 0;
+            width: 100%;
+            box-sizing: border-box;
         }
-
         /* Navigation Bar */
         .innernav-bg {
             background: linear-gradient(90deg, #007BFF, #FF5722);
             color: white;
             box-shadow: 0 4px 12px rgba(0,0,0,0.07);
             border-radius: 0 0 16px 16px;
+            width: 100%;
         }
         .inner-container {
             max-width: 1200px;
@@ -68,6 +65,8 @@ include('php/connector.php');
             flex-wrap: wrap;
             padding: 12px 0;
             gap: 18px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .logo {
             display: flex;
@@ -82,6 +81,7 @@ include('php/connector.php');
         .search {
             flex: 1 1 250px;
             margin: 0 18px;
+            min-width: 180px;
         }
         .search input {
             width: 100%;
@@ -90,12 +90,13 @@ include('php/connector.php');
             border-radius: 20px;
             border: 1px solid #ccc;
             font-size: 15px;
+            box-sizing: border-box;
         }
         .nav-links {
             display: flex;
             gap: 16px;
             align-items: center;
-            flex-wrap: wrap;         /* Allow links to wrap on small screens */
+            flex-wrap: wrap;
             justify-content: flex-end;
         }
         .nav-links a {
@@ -105,6 +106,7 @@ include('php/connector.php');
             padding: 8px 18px;
             border-radius: 20px;
             transition: background 0.3s, color 0.3s;
+            white-space: nowrap;
         }
         .nav-links a:hover, .logout-btn:hover {
             background: #fff2;
@@ -132,7 +134,6 @@ include('php/connector.php');
             cursor: pointer;
             margin-left: 10px;
         }
-
         /* Welcome Section */
         .welcomeuser {
             display: flex;
@@ -140,6 +141,7 @@ include('php/connector.php');
             gap: 12px;
             margin-top: 10px;
             flex-wrap: wrap;
+            margin-bottom: 24px;
         }
         .welcomeuser h2 {
             font-size: 24px;
@@ -151,7 +153,6 @@ include('php/connector.php');
             font-size: 18px;
             color: #333;
         }
-
         /* Main Slider */
         .mainslider-container {
             display: flex;
@@ -163,8 +164,10 @@ include('php/connector.php');
             color: white;
             border-radius: 14px;
             flex-wrap: nowrap;
+            width: 100%;
+            box-sizing: border-box;
         }
-        .info-container {
+        .info-container, .slide-container {
             flex: 1 1 320px;
             min-width: 220px;
             max-width: 500px;
@@ -197,14 +200,6 @@ include('php/connector.php');
             color: #fff;
             transform: scale(1.08);
         }
-        .slide-container {
-            flex: 1 1 320px;
-            min-width: 220px;
-            max-width: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
         .slider {
             width: 100%;
             max-width: 400px;
@@ -230,7 +225,6 @@ include('php/connector.php');
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
         /* Recently Added Products */
         .recentlyadd h3 {
             color: #007BFF;
@@ -249,12 +243,20 @@ include('php/connector.php');
             margin-right: auto;
             box-sizing: border-box;
             align-items: stretch;
+            width: 100%;
         }
         .product-item {
             display: flex;
             flex-direction: column;
             height: 100%;
             min-height: 340px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.09);
+            overflow: hidden;
+            text-align: center;
+            padding: 18px;
+            margin: 0;
         }
         .productlist-img {
             width: 100%;
@@ -285,9 +287,8 @@ include('php/connector.php');
             text-decoration: none;
             font-weight: 500;
             transition: background 0.3s, transform 0.3s;
-            margin-top: auto; /* Push button to bottom */
+            margin-top: auto;
         }
-
         /* Footer */
         .footer {
             background: linear-gradient(90deg, #4CAF50, #007BFF);
@@ -296,6 +297,7 @@ include('php/connector.php');
             text-align: center;
             border-radius: 16px 16px 0 0;
             margin-top: 30px;
+            flex-shrink: 0;
         }
         .footer .container {
             max-width: 1200px;
@@ -339,17 +341,16 @@ include('php/connector.php');
             transform: scale(1.2);
             color: #FFD600;
         }
-
-        /* Responsive Design */
         @media (max-width: 1024px) {
             .supermain-container, .inner-container {
-                max-width: 98vw;
+                max-width: 100vw;
                 padding: 0 6px;
             }
             .mainslider-container {
                 flex-direction: column;
                 gap: 18px;
                 padding: 18px 0;
+                width: 100%;
             }
             .slide-container, .info-container {
                 max-width: 100%;
@@ -363,25 +364,30 @@ include('php/connector.php');
                 flex-direction: column;
                 gap: 10px;
                 align-items: stretch;
+                width: 100%;
             }
             .mainslider-container {
                 flex-direction: column;
                 gap: 12px;
                 padding: 10px 0;
+                width: 100%;
             }
             .product-grid {
                 gap: 12px;
-                padding: 18px 4vw 0 4vw;
+                padding: 18px 2vw 0 2vw;
+                width: 100%;
             }
             .product-item {
-                width: 98vw;
-                max-width: 340px;
+                width: 100%;
+                max-width: 98vw;
+                min-width: 0;
             }
             .slide img {
                 height: 140px;
             }
             .search {
                 margin: 0 0 10px 0;
+                min-width: 0;
             }
             .hamburger-menu {
                 display: block;
@@ -390,34 +396,6 @@ include('php/connector.php');
                 flex-direction: column;
                 gap: 8px;
             }
-        }
-        @media (max-width: 700px) {
-            .supermain-container {
-                padding: 10px 2vw 0 2vw;
-            }
-            .product-grid {
-                gap: 12px;
-                padding: 18px 2vw 0 2vw;
-            }
-            .product-item {
-                width: 100%;
-                max-width: 98vw;
-                min-width: 0;
-            }
-            .footer .row {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .mainslider-container {
-                flex-direction: column;
-                gap: 12px;
-                padding: 10px 0;
-            }
-            .slide img {
-                height: 140px;
-            }
-        }
-        @media (max-width: 700px) {
             .nav-links {
                 flex-direction: column;
                 align-items: flex-start;
@@ -426,6 +404,38 @@ include('php/connector.php');
                 margin-top: 10px;
             }
         }
+        @media (max-width: 500px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        padding: 12px 2vw 0 2vw;
+        overflow-x: auto;
+    }
+    .product-item {
+        min-width: 0;
+        width: 100%;
+        max-width: 98vw;
+    }
+    .mainslider-container {
+        padding: 10px 0;
+    }
+    .footer .row {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .inner-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+        width: 100%;
+    }
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+        margin-top: 10px;
+    }
+}
     </style>
 </head>
 
@@ -453,21 +463,19 @@ include('php/connector.php');
                     </div>
                 </div>
             </div>
-
             <!-- Welcome Section -->
             <div class="welcomeuser">
                 <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username'] ?? 'User'); ?>!</h2>
                 <span>Happy shopping and selling!</span>
             </div>
-
             <!-- Main Slider -->
             <div class="mainslider-container">
                 <div class="info-container">
                     <h2>Discover Great Deals</h2>
                     <p>Buy and sell quality second-hand items. Save money and reduce waste!</p>
                     <div class="infobutton">
-                        <a href="products.php" class="infobtn1">Browse Products</a>
-                        <a href="addproduct.php" class="infobtn2">+ List Product</a>
+                        <a href="./productcard_productdetails.php" class="infobtn1">Browse Products</a>
+                        <a href="./userhomepage/addusermanage" class="infobtn2">+ List Product</a>
                     </div>
                 </div>
                 <div class="slide-container">
@@ -478,14 +486,13 @@ include('php/connector.php');
                     </div>
                 </div>
             </div>
-
             <!-- Recently Added Products -->
             <div class="recentlyadd">
                 <h3>Recently Added Products</h3>
             </div>
             <div class="product-grid">
                 <?php
-                $sql = "SELECT * FROM productdetails WHERE display_home=1 ORDER BY Product_id DESC LIMIT 8";
+                $sql = "SELECT * FROM productdetails WHERE display_home=1 ORDER BY Product_id DESC LIMIT 6";
                 $r = mysqli_query($con, $sql);
                 while ($data = mysqli_fetch_assoc($r)) {
                 ?>
@@ -530,7 +537,6 @@ include('php/connector.php');
             </div>
         </div>
     </footer>
-
     <script>
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');

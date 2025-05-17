@@ -2,8 +2,15 @@
 include('php/connector.php');
 if (!isset($_SESSION['email']) || !isset($_SESSION['user_id']) || !isset($_SESSION['role'])) {
     header('location:login.php');
+    exit;
 }
-$product_id = $_GET['product_id'];
+
+// Check if product_id is set and is numeric
+if (!isset($_GET['product_id']) || !is_numeric($_GET['product_id'])) {
+    echo "<h2 style='color:red;text-align:center;margin-top:40px;'>Invalid product ID.</h2>";   
+    exit;
+}
+$product_id = (int)$_GET['product_id'];
 ?>
 
 <!DOCTYPE html>

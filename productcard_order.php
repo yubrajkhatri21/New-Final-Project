@@ -18,158 +18,133 @@ $order_id = $_GET['orderid'];
     <title>Document</title>
     <style>
         body {
-            margin: 0px;
-            padding: 0px;
-            font-family: 'Barlow', sans-serif;
-            font-family: 'Lato', sans-serif;
-            font-family: 'Roboto', sans-serif;
-            font-family: 'Ubuntu', sans-serif;
-            background-color: rgba(128, 128, 128, 0.273);
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', 'Lato', 'Barlow', 'Ubuntu', sans-serif;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
         }
 
         .card_img1 {
-            background-color: rgba(189, 190, 191, 0.277);
-
-
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            border-radius: .8rem;
-            width: 100%;
+            background: linear-gradient(135deg, #e3f6f5 0%, #a8edea 100%);
+            box-shadow: 0 4px 18px #43cea244;
+            border-radius: 1rem;
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            margin-right: 24px;
+            border: 4px solid #43cea2;
         }
 
         .main-container-card {
-            background-color: rgba(196, 225, 255, 0.852);
-
-
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            border-radius: .8rem;
-
-            width: 80%;
-            padding: 2%;
-            margin: auto;
-            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            width: 90%;
+            max-width: 950px;
+            padding: 2.5rem 2rem 2rem 2rem;
+            margin: 32px auto 24px auto;
         }
 
         .inner-container-card {
             display: flex;
-            align-items: center;
-
-
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 32px;
         }
 
         .card_sep {
 
-            width: 70%;
-            margin-left: 40px;
-            padding: 10px;
-
+            flex: 1 1 350px;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-
-
-
+            gap: 18px 24px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px #185a9d22;
         }
 
         .card_sep h3 {
-            margin-right: 20px;
+            margin: 0 0 6px 0;
+            color: #185a9d;
+            font-size: 1.08rem;
+        }
+
+        .card_sep p {
+            margin: 0;
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .product_bio {
-
-
-            height: 10vh;
-            font-size: 18px;
-
-            padding-top: 30px;
-
-            width: 100%;
-
-
-            max-height: 150px;
+            grid-column: 1 / span 2;
+            background: linear-gradient(90deg, #fed6e3 0%, #a8edea 100%);
+            border-radius: 10px;
+            font-size: 1.08rem;
+            color: #185a9d;
+            padding: 14px 10px;
+            margin-top: 10px;
+            max-height: 120px;
             overflow-y: auto;
-
-            padding: 10px;
+            box-shadow: 0 2px 8px #43cea244;
         }
 
         .card_img2 {
-            width: 20%;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 1rem;
+            margin-left: 32px;
+            background: #fff;
+            border: 3px solid #ffb347;
+            box-shadow: 0 2px 8px #ffb34744;
+            align-self: flex-start;
         }
 
         .note {
 
-            width: 50%;
-            margin: auto;
-            font-size: 20px;
-            margin-top: 20px;
+            width: 90%;
+            max-width: 700px;
+            margin: 24px auto 0 auto;
+            font-size: 1.1rem;
+            background: linear-gradient(90deg, #43cea2 0%, #ffb347 100%);
+            color: #fff;
+            border-radius: 12px;
+            padding: 16px 24px;
+            text-align: center;
+            box-shadow: 0 2px 8px #43cea244;
+        }
+
+        .card_but {
+            text-align: center;
+            margin-top: 24px;
         }
 
         .card_but a {
             text-decoration: none;
-
             color: #fff;
-            padding: 10px 20px;
-            border-radius: .8rem;
-            font-size: 15px;
-
-        }
-
-        .backbtn {
-            background-color: rgba(128, 128, 128, 0.809);
-            margin: 10px;
-        }
-
-        .buybtn {
-            background-color: green;
-        }
-
-        .card_but {
-
-            text-align: center;
-            margin-top: 10px;
-            transition: .25s;
-        }
-
-        .card_but button {
-            background-color: blue;
-            border: none;
-            padding: 10px 20px;
-            border-radius: .8rem;
-            margin: 10px;
-            color: white;
-            font-size: 15px;
-            transition: .25s;
-
-        }
-
-        .card_but button:hover {
-
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            cursor: pointer;
+            padding: 12px 32px;
+            border-radius: 24px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            margin: 0 10px;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px #185a9d22;
+            display: inline-block;
         }
 
         .card_but a:hover {
-            transform: scale(1.1);
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            cursor: pointer;
-
+            background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+            color: #185a9d;
+            transform: scale(1.08);
+            box-shadow: 0 4px 18px #ffb34744;
         }
-
-        .backbtn {
-            background-color: gray;
-        }
-
-        .main-container-card h2 {
-            text-align: center;
-            border-bottom: 3px solid rgba(128, 128, 128, 0.534);
-        }
-
-        /* css for buy option */
 
         .master-maindiv {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.18);
             display: none;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(8.5px);
@@ -179,8 +154,8 @@ $order_id = $_GET['orderid'];
             position: fixed;
             top: 0;
             width: 100vw;
-
-
+            left: 0;
+            z-index: 1000;
         }
 
         .main-container-qr {
@@ -199,55 +174,99 @@ $order_id = $_GET['orderid'];
         }
 
         .inner-container-qr {
-            background-color: lightseagreen;
-            border-radius: .8rem;
-            width: 50%;
-            height: 75%;
+            background: linear-gradient(135deg, #43cea2 0%, #ffb347 100%);
+            border-radius: 1.2rem;
+            width: 90%;
+            max-width: 420px;
+            height: auto;
             text-align: center;
+            padding: 32px 18px;
+            color: #fff;
+            box-shadow: 0 4px 18px #185a9d22;
+        }
+
+        .inner-container-qr h2 {
+            margin-bottom: 18px;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .img1-qr img {
+            width: 120px;
+            margin: 18px auto;
+            border-radius: 1rem;
+            background: #fff;
+            border: 2px solid #43cea2;
+            box-shadow: 0 2px 8px #43cea244;
         }
 
         .info-qr p {
-            padding: 10px 110px;
-            font-size: 20px;
+            padding: 10px 0;
+            font-size: 1.1rem;
+            color: #fff;
         }
 
         .btn-qr {
-            width: 60%;
-            margin: auto;
-
-            padding: 10px 20px;
-            color: white;
-            font-size: 20px;
-
-            border-radius: .8rem;
-
-        }
-
-
-        .btn-qr1 {
-            background-color: rgba(128, 128, 128, 0.725);
+            width: 100%;
+            margin: 18px auto;
+            padding: 10px 0;
         }
 
         .btn-qr2 {
-            color: white;
+            color: #185a9d;
             font-weight: bold;
-            padding: 10px 250px;
-            background-color: rgba(0, 0, 255, 0.676);
+            padding: 10px 40px;
+            background: linear-gradient(90deg, #fff 0%, #ffcc33 100%);
             text-decoration: none;
-            border-radius: .8rem;
-
+            border-radius: 1rem;
+            font-size: 1.1rem;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            display: inline-block;
+            margin: 0 8px;
         }
 
-        .btn-qr2:hover,
-        .btn-qr1:hover {
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            cursor: pointer;
+        .btn-qr2:hover {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            transform: scale(1.08);
         }
 
-        .img1-qr {
-            width: 50%;
-            margin: auto;
+        @media (max-width: 900px) {
+            .main-container-card {
+                padding: 1rem 0.5rem;
+            }
+
+            .inner-container-card {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 18px;
+            }
+
+            .card_img1,
+            .card_img2 {
+                margin: 0 auto 18px auto;
+                display: block;
+            }
+
+            .card_sep {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main-container-card {
+                padding: 0.5rem 0.2rem;
+            }
+
+            .note {
+                font-size: 1rem;
+                padding: 10px 8px;
+            }
+
+            .inner-container-qr {
+                padding: 18px 4px;
+            }
         }
     </style>
 </head>
